@@ -1,0 +1,59 @@
+[gd_scene load_steps=6 format=3 uid="uid://cnnwkqect4fpo"]
+
+[ext_resource type="Script" path="res://character_body_2d.gd" id="1_fgpe0"]
+[ext_resource type="Texture2D" uid="uid://ce2gbnbui7pjp" path="res://SPRITE/icon.svg" id="2_mofn4"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gkp8a"]
+animations = [{
+"frames": [],
+"loop": false,
+"name": &"Die",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_mofn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mofn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mofn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mofn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mofn4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_mofn4")
+}],
+"loop": true,
+"name": &"run",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ukysf"]
+size = Vector2(127, 106)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vyvur"]
+size = Vector2(127, 20)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_fgpe0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_gkp8a")
+animation = &"Die"
+autoplay = "run"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 11)
+shape = SubResource("RectangleShape2D_ukysf")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(1.5, -55)
+shape = SubResource("RectangleShape2D_vyvur")

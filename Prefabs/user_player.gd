@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -375.0
-const WALL_SLIDING_SPEED = 5000 
+const WALL_SLIDING_SPEED = 5000
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var JumpsMade = 0
@@ -38,3 +38,10 @@ func _physics_process(delta):
 
 func _on_wall_jump_timer_timeout():
 	DoWallJump = false
+	
+	#respawn
+	if position.y > 900:
+		respawn()
+
+func respawn():
+	position = start_position
