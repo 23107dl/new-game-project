@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -375.0
-const WALL_SLIDING_SPEED = 5000
+const WALL_SLIDING_SPEED = 2500
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var JumpsMade = 0
