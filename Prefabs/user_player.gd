@@ -5,7 +5,7 @@ extends CharacterBody2D
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -375.0
-const WALL_SLIDING_SPEED = 2500
+const WALL_SLIDING_SPEED = 1000
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var JumpsMade = 0
@@ -13,12 +13,24 @@ var DoWallJump = false
 var start_position = Vector2(-15, 162)
 
 
+
 func _physics_process(delta):
 	var direction = Input.get_axis("move left", "move right")
 	
 	if is_on_wall_only(): velocity.y = WALL_SLIDING_SPEED * delta
 	elif not is_on_floor(): velocity.y += gravity * delta
-	else: JumpsMade = 0
+	else:
+		if abs(velocity.x) > 10:
+			anim.play("Run")
+		else:
+			anim.play("Idle")
+			
+		if velocity.x < 10:
+			anim.flip_h = true
+		else:
+			anim.flip_h = false 
+		
+	
 	
 	if Input.is_action_just_pressed("ui_accept"):
 		if is_on_wall_only():
@@ -29,11 +41,15 @@ func _physics_process(delta):
 		elif is_on_floor() || JumpsMade < 1:
 			velocity.y = JUMP_VELOCITY
 			JumpsMade += 1
+			anim.play("Jump")
+	
+		
 		
 	if direction && not DoWallJump: velocity.x = direction * SPEED
 	elif not DoWallJump: velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 	move_and_slide()
+
 
 
 func _on_wall_jump_timer_timeout():

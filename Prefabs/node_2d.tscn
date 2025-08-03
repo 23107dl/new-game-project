@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d1dwvi7lu35q1"]
 
 [ext_resource type="Script" path="res://SCENES/Enemy.gd" id="1_85scu"]
-[ext_resource type="Texture2D" uid="uid://ce2gbnbui7pjp" path="res://SPRITE/icon.svg" id="2_e6wyb"]
+[ext_resource type="Texture2D" uid="uid://ce2gbnbui7pjp" path="res://icon.svg" id="2_e6wyb"]
 
 [sub_resource type="Curve2D" id="Curve2D_833gh"]
 _data = {

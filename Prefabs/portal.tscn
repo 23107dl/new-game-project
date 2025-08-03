@@ -1,21 +1,74 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7gnaf3u20q4w"]
+[gd_scene load_steps=11 format=3 uid="uid://c7gnaf3u20q4w"]
 
-[ext_resource type="Texture2D" uid="uid://ce2gbnbui7pjp" path="res://SPRITE/icon.svg" id="1_1n71f"]
 [ext_resource type="Script" path="res://SCRIPTS/portal.gd" id="1_7bxl8"]
+[ext_resource type="Texture2D" uid="uid://cpsn705qa22gq" path="res://SPRITE/Dimensional_Portal.png" id="2_5op7u"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_bf2pw"]
 radius = 32.0
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8u3fg"]
+atlas = ExtResource("2_5op7u")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eao88"]
+atlas = ExtResource("2_5op7u")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hily5"]
+atlas = ExtResource("2_5op7u")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6rrxt"]
+atlas = ExtResource("2_5op7u")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ro7jq"]
+atlas = ExtResource("2_5op7u")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rm1b"]
+atlas = ExtResource("2_5op7u")
+region = Rect2(64, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5e0l6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8u3fg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eao88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hily5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6rrxt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ro7jq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rm1b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="Portal" type="Area2D"]
-position = Vector2(128, 128)
+position = Vector2(576, 320)
+scale = Vector2(1.91366, -2.59318)
 script = ExtResource("1_7bxl8")
-metadata/_edit_group_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.35137, 0.526112)
 shape = SubResource("CircleShape2D_bf2pw")
 
-[node name="Icon" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_1n71f")
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 0, 1, 1)
+sprite_frames = SubResource("SpriteFrames_5e0l6")
+autoplay = "default"
+frame_progress = 0.538655
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
