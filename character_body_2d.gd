@@ -8,11 +8,12 @@ const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health = 1
 var direction = 1
+
 func _process(delta):
 	if health <= 0:
 		$CollisionShape2D.disabled = true
 		set_physics_process(false)
-		
+		$AnimatedSprite2D.play("death")
 	
 func add_gravity(delta):
 	if not is_on_floor():
@@ -35,17 +36,13 @@ func _set_animation():
 	if direction.x > 0: animatedsprite.flip_h = true
 	elif direction.x < 0: animatedsprite.flip_h = false
 	
-	if health <= 0: animatedsprite.play("Die")
+	if health <= 0: animatedsprite.play("death")
+
+		
+func _on_animated_sprite_2d_animation_finished():
+	if animatedsprite.animation == "death":
+		queue_free()
 
 func _on_get_damaged_body_entered(body):
-	if "User_Player" in body.name:
+	if body.name == "User_Player":
 		health -= 1
-		
-
-	
-	
-
-func _on_animated_sprite_2d_animation_finished():
-	if animatedsprite.animation == "Die":
-		queue_free()
-		

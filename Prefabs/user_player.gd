@@ -61,3 +61,8 @@ func _on_wall_jump_timer_timeout():
 
 func respawn():
 	position = start_position
+
+
+func _on_area_2d_body_entered(body):
+	if body.is_in_group("enemy"):
+		respawn()
