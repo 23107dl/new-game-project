@@ -9,7 +9,9 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var health = 1
 var direction = 1
 
-func _process(delta):
+
+
+func _process(_delta):
 	if health <= 0:
 		$CollisionShape2D.disabled = true
 		set_physics_process(false)
@@ -46,3 +48,4 @@ func _on_animated_sprite_2d_animation_finished():
 func _on_get_damaged_body_entered(body):
 	if body.name == "User_Player":
 		health -= 1
+		

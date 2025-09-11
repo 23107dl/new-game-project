@@ -1,4 +1,3 @@
-
 extends CharacterBody2D
 
 @onready var anim : AnimatedSprite2D = $AnimatedSprite2D
@@ -11,10 +10,15 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var JumpsMade = 0
 var DoWallJump = false
 var start_position = Vector2(-15, 162)
+var size_cloth = 100
 
-
+func _ready() -> void:
+	$Cloth.clear_points()
 
 func _physics_process(delta):
+	$Cloth.add_point(position)
+	if $Cloth.get_point_count()>size_cloth:
+		$Cloth.remove_point(0)
 	var direction = Input.get_axis("move left", "move right")
 	
 	if is_on_wall_only(): velocity.y = WALL_SLIDING_SPEED * delta

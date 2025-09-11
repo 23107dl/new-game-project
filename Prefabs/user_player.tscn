@@ -1,9 +1,10 @@
-[gd_scene load_steps=27 format=3 uid="uid://cevbijvjwi3r2"]
+[gd_scene load_steps=30 format=3 uid="uid://cevbijvjwi3r2"]
 
 [ext_resource type="Script" path="res://Prefabs/user_player.gd" id="1_eeetl"]
 [ext_resource type="Texture2D" uid="uid://ckm71ynlej6ga" path="res://SPRITE/idle.png" id="3_jomxp"]
 [ext_resource type="Texture2D" uid="uid://i6qti1ymfiyo" path="res://SPRITE/Jump.png" id="3_qoly6"]
 [ext_resource type="Texture2D" uid="uid://bi4q6i2ynd1k5" path="res://SPRITE/idle (1).png" id="4_65eip"]
+[ext_resource type="Script" path="res://shake_camera.gd" id="5_ajg3f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_j60eq"]
 atlas = ExtResource("3_jomxp")
@@ -165,26 +166,38 @@ size = Vector2(40, 55.5381)
 [sub_resource type="CircleShape2D" id="CircleShape2D_ekrct"]
 radius = 13.0384
 
+[sub_resource type="Curve" id="Curve_foifq"]
+_data = [Vector2(0.00735293, 0), 0.0, 0.0, 0, 0, Vector2(0.970588, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_1mocd"]
+colors = PackedColorArray(0.549892, 0.000556488, 0.624793, 1, 0.219326, 0.000265008, 0.311977, 1)
+
 [node name="User_Player" type="CharacterBody2D"]
 position = Vector2(-9, -14)
 script = ExtResource("1_eeetl")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(34, 33)
+zoom = Vector2(4, 4)
+script = ExtResource("5_ajg3f")
+
+[node name="Timer" type="Timer" parent="Camera2D"]
+autostart = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(28, 39)
 scale = Vector2(0.6, 0.582)
 sprite_frames = SubResource("SpriteFrames_iuq4k")
-animation = &"Run"
+animation = &"Idle"
 autoplay = "Run"
+frame_progress = 0.903126
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(28, 44.3386)
 rotation = -3.14159
 scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_twqpt")
-
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(34, 33)
-zoom = Vector2(4.2, 4.2)
 
 [node name="WallJumpTimer" type="Timer" parent="."]
 wait_time = 0.4
@@ -196,5 +209,19 @@ position = Vector2(28, 45)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_ekrct")
 
+[node name="Cloth" type="Line2D" parent="."]
+top_level = true
+clip_children = 2
+z_index = -1
+position = Vector2(26, 43)
+points = PackedVector2Array(0, 0)
+width_curve = SubResource("Curve_foifq")
+default_color = Color(0.394954, 0.174094, 0.433749, 1)
+gradient = SubResource("Gradient_1mocd")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[connection signal="timeout" from="Camera2D/Timer" to="Camera2D" method="_on_timer_timeout"]
 [connection signal="timeout" from="WallJumpTimer" to="." method="_on_wall_jump_timer_timeout"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
