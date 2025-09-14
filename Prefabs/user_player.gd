@@ -1,6 +1,7 @@
 extends CharacterBody2D
 
 @onready var anim : AnimatedSprite2D = $AnimatedSprite2D
+@onready var jump_sound = $jump
 
 const SPEED = 150.0
 const JUMP_VELOCITY = -375.0
@@ -46,7 +47,7 @@ func _physics_process(delta):
 			velocity.y = JUMP_VELOCITY
 			JumpsMade += 1
 			anim.play("Jump")
-	
+			jump_sound.play()
 		
 		
 	if direction && not DoWallJump: velocity.x = direction * SPEED
