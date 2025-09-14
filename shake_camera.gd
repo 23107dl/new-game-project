@@ -6,7 +6,7 @@ extends Camera2D
 @export var follow_node : Node2D
 
 var trauma : float = 0.0
-var trauma_power :int = 4.5
+var trauma_power :int = 4
 var shaking = false
 
 func _input(event: InputEvent) -> void:
