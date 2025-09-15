@@ -106,7 +106,7 @@ size = Vector2(34, 28)
 metadata/_edit_horizontal_guides_ = [27.0]
 
 [node name="User_Player" parent="." instance=ExtResource("1_ns0rj")]
-position = Vector2(1051, -198)
+position = Vector2(-5, 149)
 
 [node name="Portal" parent="." instance=ExtResource("3_jj1ur")]
 position = Vector2(1277, 200)
